@@ -54,9 +54,13 @@ public class MusicOrganizer
     public void playTrack(int index)
     {
         if(indexValid(index)) {
+            // Stop already playing track before playing another
+            stopPlaying();
+            // Start playing track
             Track track = tracks.get(index);
             player.startPlaying(track.getFilename());
             System.out.println("Now playing: " + track.getArtist() + " - " + track.getTitle());
+            // Increment play counter
             track.incrementPlayCount();
         }
     }
