@@ -109,11 +109,16 @@ public class MusicOrganizer
      * @param searchString The string to match.
      */
     public void listMatching(String searchString) {
+        boolean found = false;
         for ( String filename : files ) {
             if ( filename.contains(searchString) ) {
                 // A match.
+                found = true;
                 System.out.println(filename);
             }
+        }
+        if ( !found ) {
+            System.out.println("No matches for " + searchString + " found.");
         }
     }
 }
