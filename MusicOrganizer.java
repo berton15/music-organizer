@@ -97,6 +97,8 @@ public class MusicOrganizer
      * List all files in the collection.
      */
     public void listAllFiles() {
-        
+        System.out.println(files.get(0));
+        System.out.println(files.get(1));
+        System.out.println(files.get(2));
     }
 }
