@@ -13,6 +13,7 @@ public class MusicOrganizerTest
 {
     private MusicOrganizer musicOrg1;
 
+
     /**
      * Default constructor for test class MusicOrganizerTest
      */
@@ -29,10 +30,6 @@ public class MusicOrganizerTest
     public void setUp()
     {
         musicOrg1 = new MusicOrganizer();
-        musicOrg1.addFile("BigBillBroonzy-BabyPleaseDontGo1.mp3");
-        musicOrg1.addFile("BlindBlake-EarlyMorningBlues.mp3");
-        musicOrg1.addFile("BlindLemonJefferson-matchBoxBlues.mp3");
-        musicOrg1.addFile("BlindLemonJefferson-OneDimeBlues.mp3");
     }
 
     /**
@@ -44,4 +41,22 @@ public class MusicOrganizerTest
     public void tearDown()
     {
     }
+
+    @Test
+    public void testRemoveFileBeforeAdding()
+    {
+        musicOrg1.removeFile(0);
+    }
+
+    @Test
+    public void testAddFilesAndCheckNumber()
+    {
+        musicOrg1.addFile("BigBillBroonzy-BabyPleaseDontGo1.mp3");
+        musicOrg1.addFile("BlindBlake-EarlyMorningBlues.mp3");
+        musicOrg1.addFile("BlindLemonJefferson-matchBoxBlues.mp3");
+        musicOrg1.addFile("BlindLemonJefferson-OneDimeBlues.mp3");
+        assertEquals(4, musicOrg1.getNumberOfFiles());
+        musicOrg1.listFile(0);
+    }
 }
+
