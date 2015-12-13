@@ -83,9 +83,12 @@ public class MusicOrganizerTest
         musicOrg1.addFile("BlindBlake-EarlyMorningBlues.mp3");
         assertEquals(4, musicOrg1.getNumberOfFiles());
         // Check valid index
+        assertEquals(true, musicOrg1.validIndex(0));
         assertEquals(true, musicOrg1.validIndex(2));
+        assertEquals(true, musicOrg1.validIndex(3));
         // Check invalid index
-        assertEquals(false, musicOrg1.validIndex(6));
+        assertEquals(false, musicOrg1.validIndex(-1));
+        assertEquals(false, musicOrg1.validIndex(4));
     }
 }
 
