@@ -59,4 +59,16 @@ public class MusicOrganizer
             files.remove(index);
         }
     }
+    
+    /**
+     * Check if an index is valid for the current state of the collection.
+     * @param index The index to be checked.
+     */
+    public void checkIndex(int index)
+    {
+        int lastindex = files.size() - 1;
+        if ( index < 0 || index > lastindex ) {
+            System.out.println("Valid range is 0 to " + lastindex + ".");
+        }
+    }
 }
