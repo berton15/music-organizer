@@ -92,4 +92,11 @@ public class MusicOrganizer
     {
         player.stop();
     }
+    
+    /**
+     * List all files in the collection.
+     */
+    public void listAllFiles() {
+        
+    }
 }
