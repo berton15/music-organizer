@@ -49,5 +49,15 @@ public class MusicOrganizerTest
         musicOrg1.playTrack(1);
         musicOrg1.stopPlaying();
     }
+
+    @Test
+    public void testRemoveMatchingTracks()
+    {
+        musicOrg1.listAllTracks();
+        System.out.println("Removing track with title 'matchBoxBlues'.");
+        musicOrg1.removeMatchingTracks("matchBoxBlues");
+        musicOrg1.listAllTracks();
+    }
 }
+
 
