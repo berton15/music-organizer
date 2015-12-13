@@ -90,14 +90,14 @@ public class Track
     /**
      * Reset play count to zero.
      */
-    private void resetPlayCount() {
+    public void resetPlayCount() {
         playCount = 0;
     }
     
     /**
      * Increment play count by one.
      */
-    private void incrementPlayCount() {
+    public void incrementPlayCount() {
         playCount++;
     }
 }
