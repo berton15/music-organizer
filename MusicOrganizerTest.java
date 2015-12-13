@@ -58,5 +58,19 @@ public class MusicOrganizerTest
         assertEquals(4, musicOrg1.getNumberOfFiles());
         musicOrg1.listFile(0);
     }
+
+    @Test
+    public void testAddTwoFilesRemoveOne()
+    {
+        musicOrg1.addFile("BigBillBroonzy-BabyPleaseDontGo1.mp3");
+        musicOrg1.addFile("BlindBlake-EarlyMorningBlues.mp3");
+        assertEquals(2, musicOrg1.getNumberOfFiles());
+        musicOrg1.listFile(0);
+        musicOrg1.listFile(1);
+        musicOrg1.removeFile(0);
+        assertEquals(1, musicOrg1.getNumberOfFiles());
+        musicOrg1.listFile(0);
+    }
 }
+
 
