@@ -13,7 +13,6 @@ public class MusicOrganizerTest
 {
     private MusicOrganizer musicOrg1;
 
-
     /**
      * Default constructor for test class MusicOrganizerTest
      */
@@ -70,6 +69,23 @@ public class MusicOrganizerTest
         musicOrg1.removeFile(0);
         assertEquals(1, musicOrg1.getNumberOfFiles());
         musicOrg1.listFile(0);
+    }
+
+    @Test
+    public void testValidIndex()
+    {
+        // Check empty case
+        assertEquals(false, musicOrg1.validIndex(0));
+        // Add some files
+        musicOrg1.addFile("BlindLemonJefferson-OneDimeBlues.mp3");
+        musicOrg1.addFile("BlindLemonJefferson-matchBoxBlues.mp3");
+        musicOrg1.addFile("BigBillBroonzy-BabyPleaseDontGo1.mp3");
+        musicOrg1.addFile("BlindBlake-EarlyMorningBlues.mp3");
+        assertEquals(4, musicOrg1.getNumberOfFiles());
+        // Check valid index
+        assertEquals(true, musicOrg1.validIndex(2));
+        // Check invalid index
+        assertEquals(false, musicOrg1.validIndex(6));
     }
 }
 
