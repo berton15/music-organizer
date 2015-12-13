@@ -100,7 +100,18 @@ public class MusicOrganizerTest
         musicOrg1.addFile("audio/BlindLemonJefferson-OneDimeBlues.mp3");
         musicOrg1.listAllFiles();
     }
-}
 
+    @Test
+    public void testSearchFilename() {
+        musicOrg1.addFile("audio/BigBillBroonzy-BabyPleaseDontGo1.mp3");
+        musicOrg1.addFile("audio/BlindBlake-EarlyMorningBlues.mp3");
+        musicOrg1.addFile("audio/BlindLemonJefferson-matchBoxBlues.mp3");
+        musicOrg1.addFile("audio/BlindLemonJefferson-OneDimeBlues.mp3");
+        System.out.println("Searching for filenames matching 'Blues':");
+        musicOrg1.listMatching("Blues");
+        System.out.println("Searching for filenames matching 'cake':");
+        musicOrg1.listMatching("cake");
+    }
+}
 
 
