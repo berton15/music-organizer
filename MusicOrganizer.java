@@ -92,13 +92,13 @@ public class MusicOrganizer
     {
         player.stop();
     }
-    
+
     /**
      * List all files in the collection.
      */
     public void listAllFiles() {
-        System.out.println(files.get(0));
-        System.out.println(files.get(1));
-        System.out.println(files.get(2));
+        for ( String filename : files ) {
+            System.out.println(filename);
+        }
     }
 }
