@@ -1,90 +1,132 @@
 import java.util.ArrayList;
 
 /**
- * A class to hold details of audio files.
+ * A class to hold details of audio tracks.
+ * Individual tracks may be played.
  * 
  * @author David J. Barnes and Michael Kölling
  * @version 2011.07.31
  */
 public class MusicOrganizer
 {
-    // An ArrayList for storing the file names of music files.
-    private ArrayList<String> files;
-    // A player for the music files.
+    // An ArrayList for storing music tracks.
+    private ArrayList<Track> tracks;
+    // A player for the music tracks.
     private MusicPlayer player;
+    // A reader that can read music files and load them as tracks.
+    private TrackReader reader;
 
     /**
      * Create a MusicOrganizer
      */
     public MusicOrganizer()
     {
-        files = new ArrayList<String>();
+        tracks = new ArrayList<Track>();
+        player = new MusicPlayer();
+        reader = new TrackReader();
+        readLibrary("audio");
+        System.out.println("Music library loaded. " + getNumberOfTracks() + " tracks.");
+        System.out.println();
     }
-
+    
     /**
-     * Add a file to the collection.
-     * @param filename The file to be added.
+     * Add a track file to the collection.
+     * @param filename The file name of the track to be added.
      */
     public void addFile(String filename)
     {
-        files.add(filename);
+        tracks.add(new Track(filename));
     }
-
+    
     /**
-     * Return the number of files in the collection.
-     * @return The number of files in the collection.
+     * Add a track to the collection.
+     * @param track The track to be added.
      */
-    public int getNumberOfFiles()
+    public void addTrack(Track track)
     {
-        return files.size();
+        tracks.add(track);
     }
-
+    
     /**
-     * List a file from the collection.
-     * @param index The index of the file to be listed.
+     * Play a track in the collection.
+     * @param index The index of the track to be played.
      */
-    public void listFile(int index)
+    public void playTrack(int index)
     {
-        if( validIndex(index) ) {
-            String filename = files.get(index);
-            System.out.println(filename);
+        if(indexValid(index)) {
+            Track track = tracks.get(index);
+            player.startPlaying(track.getFilename());
+            System.out.println("Now playing: " + track.getArtist() + " - " + track.getTitle());
         }
     }
-
+    
     /**
-     * Remove a file from the collection.
-     * @param index The index of the file to be removed.
+     * Return the number of tracks in the collection.
+     * @return The number of tracks in the collection.
      */
-    public void removeFile(int index)
+    public int getNumberOfTracks()
     {
-        if( validIndex(index) ) {
-            files.remove(index);
+        return tracks.size();
+    }
+    
+    /**
+     * List a track from the collection.
+     * @param index The index of the track to be listed.
+     */
+    public void listTrack(int index)
+    {
+        System.out.print("Track " + index + ": ");
+        Track track = tracks.get(index);
+        System.out.println(track.getDetails());
+    }
+    
+    /**
+     * Show a list of all the tracks in the collection.
+     */
+    public void listAllTracks()
+    {
+        System.out.println("Track listing: ");
+
+        for(Track track : tracks) {
+            System.out.println(track.getDetails());
+        }
+        System.out.println();
+    }
+    
+    /**
+     * List all tracks by the given artist.
+     * @param artist The artist's name.
+     */
+    public void listByArtist(String artist)
+    {
+        for(Track track : tracks) {
+            if(track.getArtist().contains(artist)) {
+                System.out.println(track.getDetails());
+            }
         }
     }
-
+    
     /**
-     * Check if an index is valid for the current state of the collection.
-     * @param index The index to be checked.
+     * Remove a track from the collection.
+     * @param index The index of the track to be removed.
      */
-    public boolean validIndex(int index)
+    public void removeTrack(int index)
     {
-        if ( index >= 0 && index < files.size() ) {
-            return true;
+        if(indexValid(index)) {
+            tracks.remove(index);
         }
-        return false;
     }
-
+    
     /**
-     * Start playing a file in the collection.
-     * Use stopPlaying() to stop it playing.
-     * @param index The index of the file to be played.
+     * Play the first track in the collection, if there is one.
      */
-    public void startPlaying(int index)
+    public void playFirst()
     {
-        String filename = files.get(index);
-        player.startPlaying(filename);
+        if(tracks.size() > 0) {
+            player.startPlaying(tracks.get(0).getFilename());
+        }
     }
-
+    
     /**
      * Stop the player.
      */
@@ -94,31 +136,38 @@ public class MusicOrganizer
     }
 
     /**
-     * List all files in the collection.
+     * Determine whether the given index is valid for the collection.
+     * Print an error message if it is not.
+     * @param index The index to be checked.
+     * @return true if the index is valid, false otherwise.
      */
-    public void listAllFiles() {
-        int position = 0;
-        for ( String filename : files ) {
-            System.out.println(position + ": " + filename);
-            position++;
+    private boolean indexValid(int index)
+    {
+        // The return value.
+        // Set according to whether the index is valid or not.
+        boolean valid;
+        
+        if(index < 0) {
+            System.out.println("Index cannot be negative: " + index);
+            valid = false;
         }
+        else if(index >= tracks.size()) {
+            System.out.println("Index is too large: " + index);
+            valid = false;
+        }
+        else {
+            valid = true;
+        }
+        return valid;
     }
+    
+    private void readLibrary(String folderName)
+    {
+        ArrayList<Track> tempTracks = reader.readTracks(folderName, ".mp3");
 
-    /**
-     * List the names of files matching the given search string.
-     * @param searchString The string to match.
-     */
-    public void listMatching(String searchString) {
-        boolean found = false;
-        for ( String filename : files ) {
-            if ( filename.contains(searchString) ) {
-                // A match.
-                found = true;
-                System.out.println(filename);
-            }
-        }
-        if ( !found ) {
-            System.out.println("No matches for " + searchString + " found.");
+        // Put all thetracks into the organizer.
+        for(Track track : tempTracks) {
+            addTrack(track);
         }
     }
 }
