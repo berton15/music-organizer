@@ -13,6 +13,8 @@ public class Track
     private String title;
     // Where the track is stored.
     private String filename;
+    // Play counter
+    private int playCount;
     
     /**
      * Constructor for objects of class Track.
@@ -85,4 +87,17 @@ public class Track
         this.filename = filename;
     }
     
+    /**
+     * Reset play count to zero.
+     */
+    private void resetPlayCount() {
+        playCount = 0;
+    }
+    
+    /**
+     * Increment play count by one.
+     */
+    private void incrementPlayCount() {
+        playCount++;
+    }
 }
